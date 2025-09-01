@@ -1,0 +1,76 @@
+TebLocalPlannerROS:
+  odom_topic: odometry/filtered
+  map_frame: map
+
+  # Trajectory (减少摇头的关键参数)
+  teb_autosize: True
+  dt_ref: 0.3  # 增加时间步长减少振荡
+  dt_hysteresis: 0.04  # 适当增加滞后时间
+  max_samples: 400  # 减少样本数避免过度优化
+  global_plan_overwrite_orientation: True
+
+  # Robot (调整运动学参数)
+  max_vel_x: 0.5
+  max_vel_x_backwards: 0.15  # 降低后退速度
+  max_vel_theta: 1.2  # 降低最大角速度
+  acc_lim_x: 8.0  # 降低加速度限制
+  acc_lim_theta: 15.0  # 降低角加速度限制
+  min_turning_radius: 0.0
+  wheelbase: 0.0
+  cmd_angle_instead_rotvel: False
+  
+  # 足迹模型
+  footprint_model:
+    type: "circular"
+    radius: 0.2
+
+  # Goal tolerance
+  xy_goal_tolerance: 0.25
+  yaw_goal_tolerance: 0.157
+  free_goal_vel: False
+
+  # Obstacles
+  min_obstacle_dist: 0.25  # 恢复到原始值
+  inflation_dist: 0.5  # 减小膨胀距离
+  include_costmap_obstacles: True
+  costmap_obstacles_behind_robot_dist: 1.5  # 增加后方障碍物检测距离
+  
+  # Optimization (关键：调整权重减少振荡)
+  no_inner_iterations: 5  # 减少内层迭代
+  no_outer_iterations: 4  # 减少外层迭代
+  optimization_activate: True
+  optimization_verbose: False
+  penalty_epsilon: 0.2  # 增加惩罚epsilon
+  
+  # 权重调整（重点解决摇头问题）
+  weight_optimaltime: 2.0  # 增加时间权重
+  weight_obstacle: 30.0  # 降低障碍物权重
+  weight_inflation: 5.0  # 降低膨胀权重
+  weight_dynamic_obstacle: 5.0
+  weight_velocity: 1.0  # 增加速度平滑权重
+  weight_acceleration: 1.0  # 增加加速度平滑权重
+  weight_kinematics_forward_drive: 2.0
+  weight_kinematics_turning_radius: 2.0
+  
+  # 速度约束权重（新增，有效减少摇头）
+  weight_velocity_obstacle_ratio: 0.5
+  
+  # Homotopy Class Planning
+  enable_homotopy_class_planning: False
+  
+  # Recovery behavior
+  oscillation_recovery: True
+  oscillation_v_eps: 0.05  # 降低振荡检测阈值
+  oscillation_omega_eps: 0.05
+  oscillation_recovery_min_duration: 3.0  # 增加恢复时间
+  
+  # 新增：轨迹选择参数
+  selection_alternative_time_cost: False
+  selection_cost_scaling: 1.0
+  
+  # Visualization
+  publish_feedback: True
+  
+  # 差速驱动参数
+  max_vel_y: 0.0
+  acc_lim_y: 0.0
