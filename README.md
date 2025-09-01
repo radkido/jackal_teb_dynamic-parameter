@@ -12,4 +12,4 @@ roslaunch jackal_navigation gmapping_demo.launch
 
 # 调参
 
-python3 src/jackal/jackal_navigation/launch/complete.py
+python3 你的絕對路徑/complete.py
