@@ -1,0 +1,34 @@
+<launch>
+  <arg name="use_sim_time" default="true" />
+  <arg name="gui" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_race.world" />
+
+  <!-- 启用2D雷达 -->
+  <arg name="config" default="front_laser" />
+
+  <!-- 禁用手柄控制以避免连接错误 -->
+  <arg name="joystick" default="false" />
+
+  <!-- 启动Gazebo仿真器 -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="0" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="use_sim_time" value="$(arg use_sim_time)" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="world_name" value="$(arg world_name)" />
+  </include>
+
+  <!-- 生成带有2D雷达的Jackal机器人 -->
+  <include file="$(find jackal_gazebo)/launch/spawn_jackal.launch">
+    <arg name="x" value="0" />
+    <arg name="y" value="0" />
+    <arg name="z" value="1.0" />
+    <arg name="yaw" value="0" />
+    <arg name="config" value="$(arg config)" />
+    <arg name="joystick" value="$(arg joystick)" />
+  </include>
+
+  <!-- 启动RViz可视化（可选） -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find jackal_viz)/rviz/model.rviz" />
+</launch>
