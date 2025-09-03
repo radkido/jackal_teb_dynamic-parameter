@@ -11,13 +11,14 @@
     <!-- Process 1 out of every this many scans (set it to a higher number to skip more scans)  -->
     <param name="throttle_scans" value="1"/>
 
-    <param name="map_update_interval" value="5.0"/> <!-- default: 5.0 -->
+    <!-- 地图更新频率提高到60Hz -->
+    <param name="map_update_interval" value="0.0167"/> <!-- 1/60 ≈ 0.0167秒 -->
 
     <!-- The maximum usable range of the laser. A beam is cropped to this value.  -->
-    <param name="maxUrange" value="5.0"/>
+    <param name="maxUrange" value="12.0"/>
 
     <!-- The maximum range of the sensor. If regions with no obstacles within the range of the sensor should appear as free space in the map, set maxUrange < maximum range of the real sensor <= maxRange -->
-    <param name="maxRange" value="10.0"/>
+    <param name="maxRange" value="24.0"/>
 
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
@@ -36,10 +37,10 @@
     <param name="stt" value="0.02"/>
 
     <!-- Process a scan each time the robot translates this far  -->
-    <param name="linearUpdate" value="0.1"/>
+    <param name="linearUpdate" value="0.01"/>
 
     <!-- Process a scan each time the robot rotates this far  -->
-    <param name="angularUpdate" value="0.05"/>
+    <param name="angularUpdate" value="0.0083"/> <!-- 约60Hz -->
 
     <param name="temporalUpdate" value="-1.0"/>
     <param name="resampleThreshold" value="0.5"/>
@@ -48,10 +49,10 @@
     <param name="particles" value="10"/>
 
 <!-- Initial map size  -->
-    <param name="xmin" value="-10.0"/>
-    <param name="ymin" value="-10.0"/>
-    <param name="xmax" value="10.0"/>
-    <param name="ymax" value="10.0"/>
+    <param name="xmin" value="-6.0"/>
+    <param name="ymin" value="-6.0"/>
+    <param name="xmax" value="6.0"/>
+    <param name="ymax" value="6.0"/>
 
     <!-- Processing parameters (resolution of the map)  -->
     <param name="delta" value="0.02"/>
